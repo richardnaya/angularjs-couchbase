@@ -1,0 +1,45 @@
+block body
+    h1 Matt's Angular Socket.io Demo App
+    div(ng-controller='AppCtrl')
+        h3 Beers
+        table
+            tr(ng-repeat='beer in beers')
+                td {{beer.name}}
+                td {{beer.brewery_id}}
+                td
+                    form(ng-submit='editBeer("{{beer.id}}")')
+                        input(type='submit', value='Edit')
+        h4 Speak to other beer app users:
+        .col
+            h3 Beer Messages
+            .overflowable
+                p(ng-repeat='message in messages',
+                ng-class='{alert: message.user == "chatroom"}') {{message.user}}: {{message.text}}
+
+        .col
+            h3 Beer Users
+            .overflowable
+                p(ng-repeat='user in users') {{user}}
+
+        .clr
+            form(ng-submit='sendMessage()')
+                | Message:
+                input(size='40', ng-model='message')
+                input(type='submit', value='Send')
+
+        .clr
+            h3 Change your name
+            p Your current user name is {{name}}
+            form(ng-submit='changeName()')
+                input(ng-model='newName')
+                input(type='submit', value='Change Name')
+
+    script(src='/js/libs/angular/angular.min.js')
+    script(src='socket.io/socket.io.js')
+    script(src='/js/app.js')
+    script(src='/js/services.js')
+    script(src='/js/controllers.js')
+    script(src='/js/filters.js')
+    script(src='/js/directives.js')
+
+extends layout
